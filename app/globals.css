@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Components use the Tailwind names mapped in @theme below,
+ * never raw hex values. The theme script in layout.tsx sets data-theme
+ * (from the saved choice or the OS setting) before first paint.
+ */
+:root {
+  --paper: #fffcf5;
+  --paper-2: #f3ecdf;
+  --paper-3: #e7ddcb;
+  --card: #ffffff;
+  --line: #e7ddcb;
+  --chip: #cdbfa8;
+  --ink: #24130f;
+  --ink-2: #4a2f27;
+  --ink-3: #6b4a3f;
+  --accent: #c42f27;
+  --accent-ink: #a92620;
+  /* Fill behind white text (buttons, badges). Same as accent here; darker in dark mode for AA contrast. */
+  --accent-fill: #c42f27;
+  --accent-soft: #fbe3dc;
+  --primary: #24130f;
+  --on-primary: #fffcf5;
+  --signal: #2e7d4f;
+  --signal-soft: #d8eddf;
+  --signal-ink: #1f5c38;
+  --danger: #a3261b;
+  --contact: #24130f;
+  --contact-line: #24130f;
+  /* Text on the contact surface, which stays dark in both themes. */
+  --on-contact: #fffcf5;
+  --on-contact-muted: #d9c9bf;
+  --contact-accent: #ff8a7a;
+  --contact-signal: #5bd18b;
+  --code-bg: #1a1311;
+  --code-ink: #f3ecdf;
+  --code-dim: #b3a398;
+  --code-kw: #ff8a7a;
+  --code-str: #b8d89a;
+  --code-ann: #e8c47c;
+  --code-num: #c9b2f0;
+  --code-line: #2c211d;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #14100e;
+  --paper-2: #1e1815;
+  --paper-3: #2a221e;
+  --card: #241d19;
+  --line: #352b25;
+  --chip: #4a3d35;
+  --ink: #f5ede4;
+  --ink-2: #dccdc1;
+  --ink-3: #b3a396;
+  --accent: #f0554a;
+  --accent-ink: #ff8a7a;
+  --accent-fill: #cc3b31;
+  --accent-soft: #3a1d18;
+  --primary: #f5ede4;
+  --on-primary: #14100e;
+  --signal: #5bd18b;
+  --signal-soft: #173524;
+  --signal-ink: #7fe0a6;
+  --danger: #f06f60;
+  --contact: #221b17;
+  --contact-line: #352b25;
+  --code-bg: #0e0b0a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-chip: var(--chip);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-soft: var(--accent-soft);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-ink: var(--signal-ink);
+  --color-danger: var(--danger);
+  --color-contact: var(--contact);
+  --color-contact-line: var(--contact-line);
+  --color-on-contact: var(--on-contact);
+  --color-on-contact-muted: var(--on-contact-muted);
+  --color-contact-accent: var(--contact-accent);
+  --color-contact-signal: var(--contact-signal);
+  --color-code-bg: var(--code-bg);
+  --color-code-ink: var(--code-ink);
+  --color-code-dim: var(--code-dim);
+  --color-code-kw: var(--code-kw);
+  --color-code-str: var(--code-str);
+  --color-code-ann: var(--code-ann);
+  --color-code-num: var(--code-num);
+  --color-code-line: var(--code-line);
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-fragment), ui-monospace, "SFMono-Regular", monospace;
+
+  --text-display: clamp(3.5rem, 1.2rem + 9vw, 9.75rem);
+  --text-display--line-height: 0.86;
+  --text-display--letter-spacing: -0.055em;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer base {
+  html {
+    background: var(--paper);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hover lift shared by buttons and cards. */
+@utility lift {
+  transition: transform 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.45);
+  }
+}
+
+@utility lift-lg {
+  transition: transform 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 56px -32px rgb(0 0 0 / 0.55);
+  }
+}
+
+/* A tint per project, set through --tint-light / --tint-dark on the element. */
+@utility tint {
+  background: var(--tint-light);
+  :root[data-theme="dark"] & {
+    background: var(--tint-dark);
+  }
+}
+
+/* Scrollable strips that are navigated with their own controls. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@utility animate-rise {
+  animation: rise 0.6s var(--ease-out-soft) both;
+}
+
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+@utility caret {
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

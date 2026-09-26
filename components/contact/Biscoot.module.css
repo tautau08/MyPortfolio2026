@@ -1,0 +1,32 @@
+/* Gentle idle loop for the napping cat. Every animation stops under reduced motion. */
+
+.breathe { transform-box: view-box; transform-origin: 178px 168px; animation: breathe 3.8s ease-in-out infinite; }
+.head { transform-box: view-box; transform-origin: 90px 160px; animation: head 3.8s ease-in-out infinite; }
+.tail { transform-box: view-box; transform-origin: 266px 144px; animation: tail 6s ease-in-out infinite; }
+.ear { transform-box: view-box; transform-origin: 72px 102px; animation: ear 7s ease-in-out infinite; }
+.bell { transform-box: view-box; transform-origin: 91px 152px; animation: bell 3.8s ease-in-out infinite; }
+.peek { opacity: 0; animation: peek 11s ease-in-out infinite; }
+.lid { animation: lid 11s ease-in-out infinite; }
+.sheen { opacity: 0.35; animation: sheen 5s ease-in-out infinite; }
+.z { opacity: 0; animation: z 3.6s ease-out infinite; }
+.z:nth-child(2) { animation-delay: 1.2s; }
+.z:nth-child(3) { animation-delay: 2.4s; }
+
+@keyframes breathe { 50% { transform: scale(1.012, 1.05); } }
+@keyframes head { 50% { transform: translateY(-1.5px) rotate(-1deg); } }
+@keyframes tail { 45% { transform: rotate(-2.5deg); } 55% { transform: rotate(1.5deg); } }
+@keyframes ear { 0%, 88%, 100% { transform: rotate(0); } 91% { transform: rotate(-14deg); } 94% { transform: rotate(4deg); } }
+@keyframes bell { 50% { transform: rotate(5deg); } }
+@keyframes peek { 0%, 70%, 86%, 100% { opacity: 0; } 73%, 83% { opacity: 1; } }
+@keyframes lid { 0%, 70%, 86%, 100% { opacity: 1; } 73%, 83% { opacity: 0; } }
+@keyframes sheen { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+@keyframes z {
+  0% { opacity: 0; transform: translate(0, 6px); }
+  25% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(10px, -14px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breathe, .head, .tail, .ear, .bell, .peek, .lid, .sheen, .z { animation: none; }
+  .z { opacity: 0.8; }
+}
