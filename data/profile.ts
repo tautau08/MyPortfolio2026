@@ -70,7 +70,7 @@ export const skills = [
 
 export const contact = {
   pitch: "Hiring for a backend or full-stack role, or need a hand with a Spring Boot or Next.js project? Send me a message.",
-  petCaption: "My cat Biscoot, on a break",
+  petCaption: "My cat Biskoot, on a break",
   status: "But I'm open to work!",
   /** Quick facts in the panel beside the form. Local time is added live from `timeZone`. */
   timeZone: { id: "Asia/Dhaka", label: "UTC+6" },
